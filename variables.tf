@@ -1,11 +1,12 @@
-variable "aws_account_id" {
-  type        = string
-  description = "AWS Account ID"
-}
-
 variable "cluster_name" {
   type        = string
   description = "Name of the ECS cluster"
+}
+
+variable "max_capacity" {
+  type        = number
+  description = "Maximum number of running instances of a Service"
+  default     = 10
 }
 
 variable "min_capacity" {
@@ -14,10 +15,14 @@ variable "min_capacity" {
   default     = 1
 }
 
-variable "max_capacity" {
-  type        = number
-  description = "Maximum number of running instances of a Service"
-  default     = 10
+variable "schedule" {
+  type = list(object({
+    schedule     = string
+    min_capacity = number
+    max_capacity = number
+  }))
+  description = "Provides an Application AutoScaling ScheduledAction resource"
+  default     = []
 }
 
 variable "service_name" {
@@ -42,15 +47,5 @@ variable "target_tracking" {
     }))
   }))
   description = "Provides an Application AutoScaling Policy resource"
-  default     = []
-}
-
-variable "schedule" {
-  type = list(object({
-    schedule     = string
-    min_capacity = number
-    max_capacity = number
-  }))
-  description = "Provides an Application AutoScaling ScheduledAction resource"
   default     = []
 }
