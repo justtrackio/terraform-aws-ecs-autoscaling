@@ -3,6 +3,12 @@ variable "cluster_name" {
   description = "Name of the ECS cluster"
 }
 
+variable "ignore_changes_min_max_capacity" {
+  type        = bool
+  description = "Whether or not to ignore min_capacity/max_capacity changes on the aws_appautoscaling_target"
+  default     = false
+}
+
 variable "max_capacity" {
   type        = number
   description = "Maximum number of running instances of a Service"
